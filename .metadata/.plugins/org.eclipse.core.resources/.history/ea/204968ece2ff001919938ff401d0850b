@@ -1,0 +1,126 @@
+package gui;
+
+import java.awt.EventQueue;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+public class FrmProducto extends JInternalFrame {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JTextField txtCodigo;
+	private JTextField txtDetalle;
+	private JTextField txtPrecio;
+	private JTextField txtStock;
+	private JTable table;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FrmProducto frame = new FrmProducto();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public FrmProducto() {
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setIconifiable(true);
+		setClosable(true);
+		setVisible(false);
+		setTitle("Mantenimiento Producto");
+		setSize(650, 450);
+		getContentPane().setLayout(null);
+		
+		JLabel lblCdigo = new JLabel("C\u00F3digo: ");
+		lblCdigo.setBounds(30, 38, 85, 14);
+		getContentPane().add(lblCdigo);
+		
+		JLabel lblDetalle = new JLabel("Detalle:");
+		lblDetalle.setBounds(30, 84, 85, 14);
+		getContentPane().add(lblDetalle);
+		
+		JLabel lblPrecio = new JLabel("Precio:");
+		lblPrecio.setBounds(30, 109, 85, 14);
+		getContentPane().add(lblPrecio);
+		
+		JLabel lblStock = new JLabel("Stock:");
+		lblStock.setBounds(30, 134, 85, 14);
+		getContentPane().add(lblStock);
+		
+		txtCodigo = new JTextField();
+		txtCodigo.setBounds(125, 35, 96, 20);
+		getContentPane().add(txtCodigo);
+		txtCodigo.setColumns(10);
+		
+		txtDetalle = new JTextField();
+		txtDetalle.setBounds(125, 81, 150, 20);
+		getContentPane().add(txtDetalle);
+		txtDetalle.setColumns(10);
+		
+		txtPrecio = new JTextField();
+		txtPrecio.setBounds(125, 106, 150, 20);
+		getContentPane().add(txtPrecio);
+		txtPrecio.setColumns(10);
+		
+		txtStock = new JTextField();
+		txtStock.setBounds(125, 131, 150, 20);
+		getContentPane().add(txtStock);
+		txtStock.setColumns(10);
+		
+		JButton btnGrabar = new JButton("Grabar");
+		btnGrabar.setBounds(288, 34, 89, 23);
+		getContentPane().add(btnGrabar);
+		
+		JButton btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.setBounds(508, 38, 89, 23);
+		getContentPane().add(btnAdicionar);
+		
+		JButton btnConsultar = new JButton("Consultar");
+		btnConsultar.setBounds(508, 72, 89, 23);
+		getContentPane().add(btnConsultar);
+		
+		JButton btnModificar = new JButton("Modificar");
+		btnModificar.setBounds(508, 109, 89, 23);
+		getContentPane().add(btnModificar);
+		
+		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.setBounds(508, 143, 89, 23);
+		getContentPane().add(btnEliminar);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(30, 183, 575, 226);
+		getContentPane().add(scrollPane);
+		
+		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"C\u00F3digo", "Detalle", "Precio Unitario", "Stock"
+			}
+		));
+		scrollPane.setViewportView(table);
+		setFrameIcon(new ImageIcon(FrmProducto.class.getResource("/imagenes/movimiento.JPG")));
+	}
+}

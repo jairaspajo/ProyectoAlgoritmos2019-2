@@ -1,0 +1,101 @@
+package gui;
+
+import java.awt.EventQueue;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JScrollPane;
+
+public class FrmBungalow extends JInternalFrame {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JTextField txtNumero;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FrmBungalow frame = new FrmBungalow();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public FrmBungalow() {
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setIconifiable(true);
+		setClosable(true);
+		setVisible(false);
+		setTitle("Mantenimiento Bungalow");
+		setSize(650, 450);
+		setFrameIcon(new ImageIcon(FrmSocio.class.getResource("/imagenes/mantenimiento.jpg")));
+		getContentPane().setLayout(null);
+		
+		JLabel lblNmero = new JLabel("N\u00FAmero:");
+		lblNmero.setBounds(34, 36, 81, 14);
+		getContentPane().add(lblNmero);
+		
+		JLabel lblEstado = new JLabel("Estado: ");
+		lblEstado.setBounds(34, 75, 81, 14);
+		getContentPane().add(lblEstado);
+		
+		JComboBox<Object> cboEstado = new JComboBox<Object>();
+		cboEstado.setBounds(125, 72, 96, 20);
+		getContentPane().add(cboEstado);
+		
+		txtNumero = new JTextField();
+		txtNumero.setBounds(125, 33, 96, 20);
+		getContentPane().add(txtNumero);
+		txtNumero.setColumns(10);
+		
+		JButton btnGrabar = new JButton("Grabar");
+		btnGrabar.setBounds(259, 32, 89, 23);
+		getContentPane().add(btnGrabar);
+		
+		JButton btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.setBounds(484, 32, 89, 23);
+		getContentPane().add(btnAdicionar);
+		
+		JButton btnConsultar = new JButton("Consultar");
+		btnConsultar.setBounds(484, 71, 89, 23);
+		getContentPane().add(btnConsultar);
+		
+		JButton btnModificar = new JButton("Modificar");
+		btnModificar.setBounds(484, 105, 89, 23);
+		getContentPane().add(btnModificar);
+		
+		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.setBounds(484, 139, 89, 23);
+		getContentPane().add(btnEliminar);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(21, 192, 589, 206);
+		getContentPane().add(scrollPane);
+		
+		JLabel lblCatergora = new JLabel("Catergor\u00EDa:");
+		lblCatergora.setBounds(34, 109, 81, 14);
+		getContentPane().add(lblCatergora);
+		
+		JComboBox<Object> cboCategoria = new JComboBox<Object>();
+		cboCategoria.setBounds(125, 106, 96, 20);
+		getContentPane().add(cboCategoria);
+		
+	}
+}

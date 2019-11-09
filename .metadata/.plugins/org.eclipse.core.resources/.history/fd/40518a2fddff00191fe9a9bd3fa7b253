@@ -1,0 +1,52 @@
+package controlador;
+
+import java.util.ArrayList;
+
+import clases.Producto;
+
+public class ProductoControlador {
+	private ArrayList<Producto> lista = new ArrayList<Producto>();
+
+	// métodos básicos de la lista
+	public void agregar(Producto obj) {
+		lista.add(obj);
+	}
+
+	public int tamaño() {
+		return lista.size();
+	}
+
+	public Producto obtener(int pos) {
+		return lista.get(pos);
+	}
+
+	// métodos adicionales
+	public Producto buscarPorCodigo(int aux) {
+		Producto salida = null;
+		for (Producto x : lista) {
+			if (x.getCodigoProducto() == aux) {
+				salida = x;
+				break;
+			}
+		}
+		return salida;
+	}
+
+	public void eliminaPorCodigo(int aux) {
+		for (Producto x : lista) {
+			if (x.getCodigoProducto() == aux) {
+				lista.remove(x);
+				break;
+			}
+		}
+	}
+
+	public void actualizar(Producto aux) {
+		for (Producto x : lista) {
+			if (x.getCodigoProducto() == aux.getCodigoProducto()) {
+				lista.set(lista.indexOf(x), aux);
+				break;
+			}
+		}
+	}
+}

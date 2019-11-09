@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="javax.swing.UIManager"/>
+<fullyQualifiedTypeName name="gui.FrmSocio"/>
+<fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
+<fullyQualifiedTypeName name="com.sun.javafx.tk.Toolkit"/>
+<fullyQualifiedTypeName name="javax.swing.JInternalFrame"/>
+<fullyQualifiedTypeName name="java.awt.Dimension"/>
+<fullyQualifiedTypeName name="java.awt.Toolkit"/>
+<fullyQualifiedTypeName name="javax.swing.JFrame"/>
+<fullyQualifiedTypeName name="gui.FrmProducto"/>
+<fullyQualifiedTypeName name="gui.FrmBungalow"/>
+<fullyQualifiedTypeName name="gui.FrmConsumo"/>
+<fullyQualifiedTypeName name="gui.FrmIngreso"/>
+<fullyQualifiedTypeName name="gui.FrmHospedaje"/>
+<fullyQualifiedTypeName name="gui.FrmHospedajes"/>
+<fullyQualifiedTypeName name="gui.FrmIngresosConsumosPendientes"/>
+<fullyQualifiedTypeName name="gui.FrmIngresosConsumosPagados"/>
+<fullyQualifiedTypeName name="gui.FrmHospedajesPagados"/>
+<fullyQualifiedTypeName name="gui.FrmIngresosConsumos"/>
+<fullyQualifiedTypeName name="gui.FrmHospedajesPendientes"/>
+<fullyQualifiedTypeName name="gui.FrmBoletas"/>
+<fullyQualifiedTypeName name="gui.pagoextras"/>
+<fullyQualifiedTypeName name="controlador.ProductoControlador"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="controlador.bungalowControlador"/>
+</qualifiedTypeNameHistroy>
