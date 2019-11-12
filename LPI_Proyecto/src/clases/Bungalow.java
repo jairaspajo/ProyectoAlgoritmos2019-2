@@ -2,9 +2,9 @@ package clases;
 
 public class Bungalow {
 	private int numeroBungalow;
+	private int estado;
 	private int categoria;
 	private double precioPorDia;
-	private int estado;
 	
 	
 	public Bungalow() {

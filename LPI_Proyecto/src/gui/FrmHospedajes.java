@@ -2,7 +2,7 @@ package gui;
 
 import java.awt.EventQueue;
 
-import javax.swing.ImageIcon;
+
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
