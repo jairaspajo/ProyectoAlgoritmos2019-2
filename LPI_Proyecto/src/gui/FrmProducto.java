@@ -33,7 +33,6 @@ public class FrmProducto extends JInternalFrame implements ActionListener, Mouse
 	private JTextField txtStock;
 	private JTable table;
 	private JButton btnAdicionar;
-	private JButton btnConsultar;
 	private JButton btnModificar;
 	private JButton btnEliminar;
 
@@ -101,28 +100,19 @@ public class FrmProducto extends JInternalFrame implements ActionListener, Mouse
 		getContentPane().add(txtStock);
 		txtStock.setColumns(10);
 		
-		JButton btnGrabar = new JButton("Grabar");
-		btnGrabar.setBounds(288, 34, 89, 23);
-		getContentPane().add(btnGrabar);
-		
 		btnAdicionar = new JButton("Adicionar");
 		btnAdicionar.addActionListener(this);
 		btnAdicionar.setBounds(508, 38, 89, 23);
 		getContentPane().add(btnAdicionar);
 		
-		btnConsultar = new JButton("Consultar");
-		btnConsultar.addActionListener(this);
-		btnConsultar.setBounds(508, 72, 89, 23);
-		getContentPane().add(btnConsultar);
-		
 		btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(this);
-		btnModificar.setBounds(508, 109, 89, 23);
+		btnModificar.setBounds(508, 80, 89, 23);
 		getContentPane().add(btnModificar);
 		
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(this);
-		btnEliminar.setBounds(508, 143, 89, 23);
+		btnEliminar.setBounds(508, 109, 89, 23);
 		getContentPane().add(btnEliminar);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -150,17 +140,12 @@ public class FrmProducto extends JInternalFrame implements ActionListener, Mouse
 		if (arg0.getSource() == btnModificar) {
 			actionPerformedBtnModificarJButton(arg0);
 		}
-		if (arg0.getSource() == btnConsultar) {
-			actionPerformedBtnConsultarJButton(arg0);
-		}
 		if (arg0.getSource() == btnAdicionar) {
 			actionPerformedBtnAdicionarJButton(arg0);
 		}
 	}
 	protected void actionPerformedBtnAdicionarJButton(ActionEvent arg0) {
 		adicionar();
-	}
-	protected void actionPerformedBtnConsultarJButton(ActionEvent arg0) {
 	}
 	protected void actionPerformedBtnModificarJButton(ActionEvent arg0) {
 		actualizar();

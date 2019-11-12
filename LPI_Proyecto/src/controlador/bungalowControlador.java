@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import clases.Bungalow;
 
 public class bungalowControlador {
-		private ArrayList<Bungalow> lista2 = new ArrayList<Bungalow>();
+		private ArrayList<Bungalow> lista = new ArrayList<Bungalow>();
 	// métodos básicos de la lista
 		public bungalowControlador() {
 			//apenas se crea el objeto , se crea la data
@@ -17,21 +17,21 @@ public class bungalowControlador {
 			cargaData();
 		}
 		public void agregar(Bungalow obj) {
-			lista2.add(obj);
+			lista.add(obj);
 		}
 
 		public int tamaño() {
-			return lista2.size();
+			return lista.size();
 		}
 
 		public Bungalow obtener(int pos) {
-			return lista2.get(pos);
+			return lista.get(pos);
 		}
 
 		// métodos adicionales
 		public Bungalow buscarPorCodigo(int aux) {
 			Bungalow salida = null;
-			for (Bungalow x : lista2) {
+			for (Bungalow x : lista) {
 				if (x.getNumeroBungalow() == aux) {
 					salida = x;
 					break;
@@ -41,18 +41,18 @@ public class bungalowControlador {
 		}
 
 		public void eliminaPorCodigo(int aux) {
-			for (Bungalow x : lista2) {
+			for (Bungalow x : lista) {
 				if (x.getNumeroBungalow() == aux) {
-					lista2.remove(x);
+					lista.remove(x);
 					break;
 				}
 			}
 		}
 
 		public void actualizar(Bungalow aux) {
-			for (Bungalow x : lista2) {
+			for (Bungalow x : lista) {
 				if (x.getNumeroBungalow() == aux.getNumeroBungalow()) {
-					lista2.set(lista2.indexOf(x), aux);
+					lista.set(lista.indexOf(x), aux);
 					break;
 				}
 			}
@@ -62,7 +62,7 @@ public class bungalowControlador {
 			BufferedReader br = null;
 			try {
 				//Se lee el archivo txt
-				br = new BufferedReader(new FileReader("Productos.txt"));
+				br = new BufferedReader(new FileReader("Bungalow.txt"));
 				String linea = null;
 				//readLine captura una linea
 				while(  (linea = br.readLine()) != null){
@@ -70,10 +70,10 @@ public class bungalowControlador {
 						String[ ]  s = linea.split(";");
 						Bungalow obj = new Bungalow();
 						obj.setNumeroBungalow(Integer.parseInt(s[0]));
-						obj.setCategoria(Integer.parseInt(s[1]));
-						obj.setPrecioPorDia(Double.parseDouble(s[2]));
-						obj.setEstado(Integer.parseInt(s[3]));
-						lista2.add(obj);
+						obj.setEstado(Integer.parseInt(s[1]));
+						obj.setCategoria(Integer.parseInt(s[2]));
+						obj.setPrecioPorDia(Double.parseDouble(s[3]));
+						lista.add(obj);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -87,9 +87,9 @@ public class bungalowControlador {
 			PrintWriter pw = null;
 			try {
 				String linea;
-				pw = new PrintWriter(new FileWriter("Productos.txt"));
-				for (Bungalow x: lista2) {
-					linea = x.getNumeroBungalow() + ";" +   x.getCategoria() + ";" +	x.getPrecioPorDia() + ";" +	x.getEstado();
+				pw = new PrintWriter(new FileWriter("Bungalow.txt"));
+				for (Bungalow x: lista) {
+					linea = x.getNumeroBungalow() + ";" +   x.getEstado() + ";" +	x.getCategoria() + ";" +	x.getPrecioPorDia();
 					pw.println(linea);
 				}
 			}

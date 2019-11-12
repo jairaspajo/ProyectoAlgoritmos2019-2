@@ -16,20 +16,31 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import clases.Bungalow;
-import clases.Producto;
 import controlador.bungalowControlador;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 
-public class FrmBungalow extends JInternalFrame {
+public class FrmBungalow extends JInternalFrame implements ActionListener, ItemListener, MouseListener {
 
 	/**
 	 * 
 	 */
+	//PASO1 
 	private bungalowControlador c = new bungalowControlador();
 	private static final long serialVersionUID = 1L;
 	private JTextField txtNumero;
 	private JTable table;
 	private JComboBox<String> cboCategoria;
 	private JComboBox<String> cboEstado;
+	private JTextField txtPrecio;
+	private JButton btnAdicionar;
+	private JButton btnModificar;
+	private JButton btnEliminar;
+	private JScrollPane scrollPane;
 
 	/**
 	 * Launch the application.
@@ -69,7 +80,7 @@ public class FrmBungalow extends JInternalFrame {
 		getContentPane().add(lblEstado);
 		
 		cboEstado = new JComboBox<String>();
-		cboEstado.setModel(new DefaultComboBoxModel(new String[] {"0", "1"}));
+		cboEstado.setModel(new DefaultComboBoxModel<String>(new String[] {"0", "1"}));
 		cboEstado.setBounds(125, 72, 96, 20);
 		getContentPane().add(cboEstado);
 		
@@ -78,24 +89,19 @@ public class FrmBungalow extends JInternalFrame {
 		getContentPane().add(txtNumero);
 		txtNumero.setColumns(10);
 		
-		JButton btnGrabar = new JButton("Grabar");
-		btnGrabar.setBounds(259, 32, 89, 23);
-		getContentPane().add(btnGrabar);
-		
-		JButton btnAdicionar = new JButton("Adicionar");
+		btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.addActionListener(this);
 		btnAdicionar.setBounds(484, 32, 89, 23);
 		getContentPane().add(btnAdicionar);
 		
-		JButton btnConsultar = new JButton("Consultar");
-		btnConsultar.setBounds(484, 71, 89, 23);
-		getContentPane().add(btnConsultar);
-		
-		JButton btnModificar = new JButton("Modificar");
-		btnModificar.setBounds(484, 105, 89, 23);
+		btnModificar = new JButton("Modificar");
+		btnModificar.addActionListener(this);
+		btnModificar.setBounds(484, 71, 89, 23);
 		getContentPane().add(btnModificar);
 		
-		JButton btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(484, 139, 89, 23);
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(this);
+		btnEliminar.setBounds(484, 105, 89, 23);
 		getContentPane().add(btnEliminar);
 		
 		JLabel lblCatergora = new JLabel("Catergor\u00EDa:");
@@ -103,48 +109,94 @@ public class FrmBungalow extends JInternalFrame {
 		getContentPane().add(lblCatergora);
 		
 		 cboCategoria = new JComboBox<String>();
-		cboCategoria.setModel(new DefaultComboBoxModel(new String[] {"categoria 1 ", "categoria 2", "categoria 3"}));
+		 cboCategoria.addItemListener(this);
+		cboCategoria.setModel(new DefaultComboBoxModel<String>(new String[] {"Simple", "Doble", "Familiar"}));
 		cboCategoria.setBounds(125, 106, 96, 20);
 		getContentPane().add(cboCategoria);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
+		scrollPane.addMouseListener(this);
 		scrollPane.setBounds(34, 184, 567, 225);
 		getContentPane().add(scrollPane);
 		
 		table = new JTable();
+		table.addMouseListener(this);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"N\u00FAmero", "Estado", "Categoria", "Precio"
+			}
+		));
 		scrollPane.setViewportView(table);
 		
+		JLabel lblPrecio = new JLabel("Precio:");
+		lblPrecio.setBounds(31, 143, 48, 14);
+		getContentPane().add(lblPrecio);
+		
+		txtPrecio = new JTextField();
+		txtPrecio.setText("100");
+		txtPrecio.setEditable(false);
+		txtPrecio.setBounds(125, 140, 96, 20);
+		getContentPane().add(txtPrecio);
+		txtPrecio.setColumns(10);
+		//Inicia el programa con un listar
+		listar();
 	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnEliminar) {
+			handleBtnEliminarActionPerformed(e);
+		}
+		if (e.getSource() == btnModificar) {
+			handleBtnModificarActionPerformed(e);
+		}
+		if (e.getSource() == btnAdicionar) {
+			handleBtnAdicionarActionPerformed(e);
+		}
+	}
+	protected void handleBtnAdicionarActionPerformed(ActionEvent e) {
+		adicionar();
+	}
+	protected void handleBtnModificarActionPerformed(ActionEvent e) {
+		actualizar();
+	}
+	protected void handleBtnEliminarActionPerformed(ActionEvent e) {
+		eliminar();
+	}
+	
 	// métodos del matenimiento
 			void listar() {
 				//Limpia la tabla de la GUI
 				DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+				//Se limpia la tabla 
 				dtm.setRowCount(0);
-
+				//Se añade datos a la tabla
 				for (int i = 0; i < c.tamaño(); i++) {
 					Bungalow x =c.obtener(i);
-					Object[] f = { x.getNumeroBungalow(), x.getCategoria(),x.getPrecioPorDia(), x.getEstado()};
+					Object[] f = { x.getNumeroBungalow(),x.getEstado(), x.getCategoria(),x.getPrecioPorDia(), };
 					dtm.addRow(f);
 				}
 			}
 
 			void adicionar() {
 				String cod = txtNumero.getText().trim();
-				String cat = String.valueOf(cboCategoria.getSelectedItem());
-				String est  = String.valueOf(cboEstado.getSelectedItem());
-
+				int est  = cboEstado.getSelectedIndex();
+				int cat = cboCategoria.getSelectedIndex();
+				String pre = txtPrecio.getText().trim();
 				// No existe
 				if (c.buscarPorCodigo(Integer.parseInt(cod)) == null) {
 					Bungalow obj = new Bungalow();
 					obj.setNumeroBungalow(Integer.parseInt(cod));
 					obj.setEstado(est);
-					obj.setCategoria(Double.parseDouble(cat));
+					obj.setCategoria(cat);
+					obj.setPrecioPorDia(Double.parseDouble(pre));
 					c.agregar(obj);
 					c.grabarData();
 					listar();
 					mensaje("Se agregó correctamente");
 					limpiarCajas();
-				} else {// Si existe un vehiculo con esa placa
+				} else {
+					// Si existe un vehiculo con esa placa
 					mensaje("Ya existe producto con código :" + cod);
 				}
 
@@ -157,19 +209,19 @@ public class FrmBungalow extends JInternalFrame {
 				} else {
 					//Se obtiene valores de la celda
 					int cod = (Integer) table.getValueAt(fila, 0);
-					String nom = (String) table.getValueAt(fila, 1);
-					double pre = (Double) table.getValueAt(fila, 2);
-					int stock = (Integer) table.getValueAt(fila, 3);
+					int est = (Integer) table.getValueAt(fila, 1);
+					int cat = (Integer) table.getValueAt(fila, 2);
+					double pre = (Double) table.getValueAt(fila, 3);
 
-					txtCodigo.setText(String.valueOf(cod));
-					txtDetalle.setText(nom);
+					txtNumero.setText(String.valueOf(cod));
+					cboEstado.setSelectedIndex(est);
+					cboCategoria.setSelectedIndex(cat);
 					txtPrecio.setText(String.valueOf(pre));
-					txtStock.setText(String.valueOf(stock));
 				}
 			}
 
 			void eliminar() {
-				int cod = Integer.parseInt(txtCodigo.getText().trim());
+				int cod = Integer.parseInt(txtNumero.getText().trim());
 
 				// NO EXISTE auto con esa placa
 				if (c.buscarPorCodigo(cod) == null) {
@@ -183,20 +235,20 @@ public class FrmBungalow extends JInternalFrame {
 			}
 
 			void actualizar() {
-				String cod = txtCodigo.getText().trim();
-				String nom = txtDetalle.getText().trim();
+				String cod = txtNumero.getText().trim();
+				int est  = cboEstado.getSelectedIndex();
+				int cat = cboCategoria.getSelectedIndex();
 				String pre = txtPrecio.getText().trim();
-				String stock = txtStock.getText().trim();
 
 				// No existe
 				if (c.buscarPorCodigo(Integer.parseInt(cod)) == null) {
 					mensaje("No existe producto con código :" + cod);
 				} else {
-					Producto obj = new Producto();
-					obj.setCodigoProducto(Integer.parseInt(cod));
-					obj.setDetalle(nom);
-					obj.setPrecioUnitario(Double.parseDouble(pre));
-					obj.setStock(Integer.parseInt(stock));
+					Bungalow obj = new Bungalow();
+					obj.setNumeroBungalow(Integer.parseInt(cod));
+					obj.setEstado(est);
+					obj.setCategoria(cat);
+					obj.setPrecioPorDia(Integer.parseInt(pre));
 					c.actualizar(obj);
 					c.grabarData();
 					listar();
@@ -205,13 +257,53 @@ public class FrmBungalow extends JInternalFrame {
 			}
 
 			void limpiarCajas() {
-				txtCodigo.setText("");
-				txtDetalle.setText("");
-				txtPrecio.setText("");
-				txtStock.setText("");
+				txtNumero.setText("");
+				cboEstado.setSelectedIndex(0);
+				cboCategoria.setSelectedIndex(0);
+				txtPrecio.setText("100");
 			}
 
 			void mensaje(String msg) {
 				JOptionPane.showMessageDialog(this, msg);
 			}
+	
+	public void itemStateChanged(ItemEvent e) {
+		if (e.getSource() == cboCategoria) {
+			handleCboCategoriaItemStateChanged(e);
+		}
+	}
+	protected void handleCboCategoriaItemStateChanged(ItemEvent e) {
+		switch (cboCategoria.getSelectedIndex()) {
+		case 0:
+			txtPrecio.setText("100");
+			break;
+		case 1:
+			txtPrecio.setText("200");
+			break;
+		default:
+			txtPrecio.setText("500");
+			break;
+		}
+	}
+	public void mouseClicked(MouseEvent e) {
+		if (e.getSource() == table) {
+			handleTableMouseClicked(e);
+		}
+	}
+	protected void handleTableMouseClicked(MouseEvent e) {
+		buscar();
+	}
+	
+	public void mousePressed(MouseEvent e) {
+	}
+
+	public void mouseReleased(MouseEvent e) {
+	}
+
+
+	public void mouseEntered(MouseEvent e) {	
+	}
+
+	public void mouseExited(MouseEvent e) {
+	}
 }
